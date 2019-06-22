@@ -24,3 +24,7 @@ Route::post('/users', 'API\UserController@store');
 Route::put('/users/{id}', 'API\UserController@update');
 // get breed of cat
 Route::get('cats/{id}/breeds', 'API\CatController@getBreed');
+//grant access google API
+Route::get('access', 'API\SocialController@grantAccess');
+//callback google API
+Route::get('/oauth2callback', 'API\SocialController@callback');

@@ -65,14 +65,28 @@ Route::post('users/{id}/set-role', 'UserController@storeRole')->name('store-role
 
 
 
-// Auth::routes();
+Auth::routes();
 //form login
-Route::get('login', 'LoginController@showLoginForm')->name('login-form');
-Route::post('login', 'LoginController@login')->name('login');
-//logout
-Route::post('logout', 'LoginController@logout')->name('logout');
-//Register
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::get('login', 'LoginController@showLoginForm')->name('login-form');
+// Route::post('login', 'LoginController@login')->name('login');
+// //logout
+// Route::post('logout', 'LoginController@logout')->name('logout');
+// //Register
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
+// Managing Google accounts.
+Route::name('google.index')->get('google', 'GoogleAccountController@index');
+Route::name('google.store')->get('google/oauth', 'GoogleAccountController@store');
+Route::name('google.destroy')->delete('google/{googleAccount}', 'GoogleAccountController@destroy');
+
+
+//show form nhập question
+Route::get('contact-us', 'HomeController@showFormContact')->name('form-contact');
+//send mail khi submit form contact
+Route::post('contact-us', 'HomeController@sendMailContact')->name('send-mail-contact');
+
+//Send mail khi user đã submit order
+Route::post('orders', 'OrderController@store')->name('store-order');

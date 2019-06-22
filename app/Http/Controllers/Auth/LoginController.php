@@ -47,8 +47,10 @@ class LoginController extends Controller
     {
         $data= $request->only('email', 'password');
          if (\Auth::attempt($data)){
+            // dd('đ');
             return redirect()->route('home');
          }
+         // dd('f');
          return redirect()->route('login');
 
     }

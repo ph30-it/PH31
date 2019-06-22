@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\ContactMail;
 
 class HomeController extends Controller
 {
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -25,4 +26,19 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function showFormContact()
+    {
+        return view('mail.contact-us');
+    }
+
+    public function sendMailContact(Request $request)
+    {
+        $email = $request->get('email');
+        $content = $request->get('content');
+        \Mail::to($email)->send(new ContactMail($email, $content));
+        dd('done');
+        // return redirect()->route('/');
+    }
+
 }
