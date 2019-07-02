@@ -101,3 +101,4 @@ Route::post('/users', 'UserController@store')->name('store-user');
 Route::get('/export', 'MyController@export')->name('export');
 Route::get('/importExportView', 'MyController@importExportView');
 Route::post('/import', 'MyController@import')->name('import');
+Route::get('/trung', 'HomeController@index');
