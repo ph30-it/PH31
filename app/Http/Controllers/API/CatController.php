@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Cat;
+use Illuminate\Support\Facades\Validator;
 
 class CatController extends Controller
 {
@@ -43,7 +44,16 @@ class CatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3|max:10',
+            'age'=> 'required|numeric',
+            'breed_id' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+        $cat= Cat::create($request->except('_token'));
+        return response()->json($cat);
     }
 
     /**

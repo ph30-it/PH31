@@ -33,7 +33,7 @@ Route::group(['middleware' => [],
 
 //route trang user
 
-Route::get('/users/{userid}', 'UserController@show');
+// Route::get('/users/{userid}', 'UserController@show');
 
 // show list breeds
 Route::get('/breeds', 'BreedController@index');
@@ -90,3 +90,14 @@ Route::post('contact-us', 'HomeController@sendMailContact')->name('send-mail-con
 
 //Send mail khi user đã submit order
 Route::post('orders', 'OrderController@store')->name('store-order');
+
+//form tạo user
+Route::get('/users/create', 'UserController@create')->name('create-user');
+//store user
+Route::post('/users', 'UserController@store')->name('store-user');
+
+//read excel
+// Route::get('read-excel', 'UserController@read');
+Route::get('/export', 'MyController@export')->name('export');
+Route::get('/importExportView', 'MyController@importExportView');
+Route::post('/import', 'MyController@import')->name('import');

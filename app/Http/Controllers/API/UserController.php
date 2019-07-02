@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -38,6 +39,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $validator = Validator::make($data,[
+            'name' => 'required|min:3'
+        ]);
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            return response()->json($validator->errors());
+        }
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
 

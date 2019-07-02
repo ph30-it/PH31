@@ -1,6 +1,13 @@
 @extends('layouts.master')
 @section('content')
 <div id="breed"></div>
+@if(session('success'))
+<p style="color: blue;">{{session('success')}}</p>
+@endif
+@if(session('fail'))
+<p style="color: red;">{{session('fail')}}</p>
+@endif
+<p>
  <table class="table table-striped">
  	<thead>
  		<tr>

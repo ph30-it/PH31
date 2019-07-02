@@ -28,3 +28,4 @@ Route::get('cats/{id}/breeds', 'API\CatController@getBreed');
 Route::get('access', 'API\SocialController@grantAccess');
 //callback google API
 Route::get('/oauth2callback', 'API\SocialController@callback');
+Route::post('cats', 'API\CatController@store');

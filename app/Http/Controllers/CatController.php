@@ -16,15 +16,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        // $cat1= Cat::withTrashed()->find(1);
-        // $cat1->restore();
-        // dd($cat1);
-        // dd($cat1);
-        $listCats= Cat::with('breed')->get();
-        Cat::whereIn('id', [1,2])->get();
-        $listCats->whereIn('id', [1,2])->all();
-        // Cat::avg('age');
-        // dd($listCats->first());
+        $listCats = Cat::all();
         return view('cat.index', compact('listCats'));
     }
 
@@ -51,7 +43,7 @@ class CatController extends Controller
         
         // Cat::insert($data); // tạo 1 record trong bảng cat
         $cat= Cat::create($data);
-        return redirect()->route('list-cats');
+        return redirect()->route('list-cats')->with('success' , 'create cat success');
     }
 
     /**

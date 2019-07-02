@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\RoleUser;
 use App\Role;
+use Excel;
 
 class UserController extends Controller
 {
@@ -39,6 +40,31 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // code xử lí tạo user
+        try 
+        {
+
+            if ($request->hasFile('image')) 
+            {
+                $imageData = [];
+                foreach (request()->file('image') as $image) 
+                {
+                    $filename = $image->getClientOriginalName();
+                    $newFilename = '/images/user/'.md5(microtime(true)).$filename;
+                    $image->move(public_path('/images/user/'), $newFilename);
+                    array_push($imageData, $newFilename);
+                }
+                $images = implode(',', $imageData);
+                // dd($images);
+                $userData = $request->except(["_token", "image"]);
+                $userData['images']= $images;
+                $userData['password'] = bcrypt($userData['password']);
+                User::create($userData);
+            }
+            return redirect()->route('cats.create')->with('message', 'create success');
+        } catch (Exception $ex) 
+            {
+                return redirect()->back()->with('fail', 'create fail');
+            }
     }
 
     /**
@@ -112,5 +138,10 @@ class UserController extends Controller
         return redirect()->route('form-set-role-user', $user->id);
         // dd($data);
 
+    }
+    public function read()
+    {
+        $data = Excel::load('/file/ScreenList.xlsx')->get();
+        dd($data);
     }
 }
