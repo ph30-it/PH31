@@ -102,3 +102,4 @@ Route::get('/export', 'MyController@export')->name('export');
 Route::get('/importExportView', 'MyController@importExportView');
 Route::post('/import', 'MyController@import')->name('import');
 Route::get('tai', 'HomeController@create');
+Route::get('/trung', 'HomeController@index');
